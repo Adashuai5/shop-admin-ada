@@ -1,0 +1,23 @@
+{
+  "id": "1552047",
+  "name": "vue-admin-ada",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "7876854",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "10793064",
+      "name": "password",
+      "font_class": "password",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    }
+  ]
+}
