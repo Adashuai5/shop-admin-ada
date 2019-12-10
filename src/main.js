@@ -1,7 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import './plugins/element.js'
+import axios from 'axios'
+
+import Element from 'element-ui';
+Vue.use(Element, {
+  zIndex: 3000
+});
+
+import './assets/css/global.less'
+import './assets/fonts/iconfont.css'
 
 Vue.config.productionTip = false
 
