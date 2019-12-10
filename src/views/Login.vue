@@ -22,46 +22,46 @@
 
 <script>
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       ruleForm: {
-        username: "admin",
-        password: "123456"
+        username: 'admin',
+        password: '123456'
       },
       rules: {
         username: [
-          { required: true, message: "请输入您的账户", trigger: "blur" },
-          { min: 3, max: 10, message: "长度在 3 到 10 个字符", trigger: "blur" }
+          { required: true, message: '请输入您的账户', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: "请输入您的密码", trigger: "change" },
-          { min: 6, max: 12, message: "长度在 6 到 12 个字符", trigger: "blur" }
+          { required: true, message: '请输入您的密码', trigger: 'change' },
+          { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
         ]
       }
-    };
+    }
   },
   methods: {
     submitForm() {
       this.$refs.ruleForm.validate(async valid => {
         if (valid) {
-          const { data: res } = await this.$http.post("login", this.ruleForm);
-          if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
-          this.$message.success(res.meta.msg);
-          console.log(res);
-          window.sessionStorage.setItem('token',res.data.token)
+          const { data: res } = await this.$http.post('login', this.ruleForm)
+          if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+          this.$message.success(res.meta.msg)
+          console.log(res)
+          window.sessionStorage.setItem('token', res.data.token)
           this.$router.push('/home')
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     resetForm() {
-      this.$refs.ruleForm.resetFields();
+      this.$refs.ruleForm.resetFields()
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>

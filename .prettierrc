@@ -1,0 +1,5 @@
+// eslint 设置
+{
+  "semi": false, // 去除自动加分号
+  "singleQuote": true // 默认单引号
+}
