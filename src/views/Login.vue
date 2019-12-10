@@ -43,9 +43,14 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$refs.ruleForm.validate(valid => {
+      this.$refs.ruleForm.validate(async valid => {
         if (valid) {
-          alert("submit!");
+          const { data: res } = await this.$http.post("login", this.ruleForm);
+          if (res.meta.status !== 200) return this.$message.error(res.meta.msg);
+          this.$message.success(res.meta.msg);
+          console.log(res);
+          window.sessionStorage.setItem('token',res.data.token)
+          this.$router.push('/home')
         } else {
           console.log("error submit!!");
           return false;
@@ -75,19 +80,19 @@ export default {
     .avater-warpper {
       height: 130px;
       width: 130px;
-      border: 1px solid #eee;
+      border: 1px solid #eeefff;
       border-radius: 50%;
       padding: 10px;
-      box-shadow: 0 0 8px #ddd;
+      box-shadow: 0 0 8px #eeeeff;
       position: absolute;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: #fff;
+      background-color: #eeffff;
       img {
         height: 100%;
         width: 100%;
         border-radius: 50%;
-        background-color: #eee;
+        border: 1px solid #efffff;
       }
     }
     .login-form {
