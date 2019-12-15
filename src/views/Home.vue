@@ -8,21 +8,25 @@
         </router-link>
       </div>
       <el-menu
-        @open="handleOpen"
-        @close="handleClose"
         background-color="#001529"
         text-color="#909399"
         active-text-color="#fff"
         unique-opened
         :collapse="isCollapse"
         :collapse-transition="false"
+        router
+        :default-active="$route.path"
       >
         <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
           <template slot="title">
             <i class="iconfont mr-10" :class="'icon'+ item.path"></i>
             <span class="title-text">{{item.authName}}</span>
           </template>
-          <el-menu-item :index="subItem.id+''" v-for="subItem in item.children" :key="subItem.id">
+          <el-menu-item
+            :index="'/'+ subItem.path"
+            v-for="subItem in item.children"
+            :key="subItem.id"
+          >
             <template slot="title">
               <i class="el-icon-menu"></i>
               <span>{{subItem.authName}}</span>
@@ -36,10 +40,12 @@
         <div class="swich el-icon-s-fold" @click="doSwitch" v-if="isCollapse === false"></div>
         <div class="swich el-icon-s-unfold" @click="doSwitch" v-else></div>
         <div>
-          <el-button size="mini" type="info" @click="logout">退出</el-button>
+          <el-button size="mini" plain @click="logout">退出</el-button>
         </div>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -48,7 +54,8 @@ export default {
   data() {
     return {
       menuList: [],
-      isCollapse: true
+      isCollapse: true,
+      activePath: ''
     }
   },
   created() {
@@ -59,19 +66,13 @@ export default {
       window.sessionStorage.clear('token')
       this.$router.push('/login')
     },
-    async getMenuList() {
-      const { data: res } = await this.$http.get('menus')
-      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-      this.menuList = res.data
+    getMenuList() {
+      this.$http.get('menus').then(({ data: res }) => {
+        this.menuList = res.data
+      })
     },
     doSwitch() {
       this.isCollapse = !this.isCollapse
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath)
     }
   }
 }
@@ -99,34 +100,9 @@ export default {
   min-height: 100vh;
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   background: #001529;
-  .el-menu {
-    border-right: none;
-    .el-submenu {
-      &:hover,
-      &.is-active,
-      &.is-open {
-        .iconfont,
-        .title-text {
-          color: #fff !important;
-        }
-      }
-    }
-    .el-menu-item {
-      &:hover {
-        i,
-        span {
-          color: #fff !important;
-        }
-      }
-      &.is-active {
-        background: #1890ff !important;
-      }
-    }
-  }
 
   .logo-wrapper {
     background: #002140;
-    width: 100%;
     height: 64px;
     padding-left: 16px;
     line-height: 64px;
@@ -149,5 +125,37 @@ export default {
 .el-main {
   background: #f0f2f5;
   color: #333;
+}
+</style>
+<style lang="less">
+.el-menu {
+  border-right: none;
+  .el-submenu {
+    :hover {
+      background: #1890ff !important;
+    }
+    &:hover,
+    &.is-active,
+    &.is-open {
+      .iconfont,
+      .title-text {
+        color: #fff !important;
+      }
+    }
+  }
+  .el-menu-item {
+    &:hover {
+      background: #1890ff !important;
+    }
+    &:hover {
+      i,
+      span {
+        color: #fff !important;
+      }
+    }
+    &.is-active {
+      background: #1890ff !important;
+    }
+  }
 }
 </style>

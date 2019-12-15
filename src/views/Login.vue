@@ -45,15 +45,12 @@ export default {
     submitForm() {
       this.$refs.ruleForm.validate(async valid => {
         if (valid) {
-          const { data: res } = await this.$http.post('login', this.ruleForm)
-          if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-          this.$message.success(res.meta.msg)
-          console.log(res)
-          window.sessionStorage.setItem('token', res.data.token)
-          this.$router.push('/home')
-        } else {
-          console.log('error submit!!')
-          return false
+          this.$http.post('login', this.ruleForm).then(({ data }) => {
+            this.$message.success(data.meta.msg)
+            window.sessionStorage.setItem('token', data.data.token)
+            window.sessionStorage.setItem('state', JSON.stringify(data.data))
+            this.$router.push('/home')
+          })
         }
       })
     },
