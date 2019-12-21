@@ -1,3 +1,4 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/shop-admin-ada/' : '/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/shop-admin-ada/' : '/',
+  lintOnSave: undefined
 }

@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside :width="isCollapse?'64px':'256px'">
+    <el-aside :width="isCollapse ? '64px' : '256px'">
       <div class="logo-wrapper">
         <router-link to="/home">
           <img src="../assets/logo.png" alt />
@@ -17,19 +17,23 @@
         router
         :default-active="$route.path"
       >
-        <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
+        <el-submenu
+          :index="item.id + ''"
+          v-for="item in menuList"
+          :key="item.id"
+        >
           <template slot="title">
-            <i class="iconfont mr-10" :class="'icon'+ item.path"></i>
-            <span class="title-text">{{item.authName}}</span>
+            <i class="iconfont mr-10" :class="'icon' + item.path"></i>
+            <span class="title-text">{{ item.authName }}</span>
           </template>
           <el-menu-item
-            :index="'/'+ subItem.path"
+            :index="'/' + subItem.path"
             v-for="subItem in item.children"
             :key="subItem.id"
           >
             <template slot="title">
               <i class="el-icon-menu"></i>
-              <span>{{subItem.authName}}</span>
+              <span>{{ subItem.authName }}</span>
             </template>
           </el-menu-item>
         </el-submenu>
@@ -37,7 +41,11 @@
     </el-aside>
     <el-container>
       <el-header>
-        <div class="swich el-icon-s-fold" @click="doSwitch" v-if="isCollapse === false"></div>
+        <div
+          class="swich el-icon-s-fold"
+          @click="doSwitch"
+          v-if="isCollapse === false"
+        ></div>
         <div class="swich el-icon-s-unfold" @click="doSwitch" v-else></div>
         <div>
           <el-button size="mini" plain @click="logout">退出</el-button>

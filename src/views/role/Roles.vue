@@ -1,21 +1,15 @@
 <template>
-  <div class>
-    roles
-  
-  </div>
+  <div class>roles</div>
 </template>
 
 <script>
 export default {
   name: '',
-  data() {
+  data () {
     return {}
   },
-  components: {},
   methods: {}
 }
 </script>
 
-<style lang="less" scoped>
-</style>
-
+<style lang="less" scoped></style>
