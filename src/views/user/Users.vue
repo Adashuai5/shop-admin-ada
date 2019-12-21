@@ -149,7 +149,6 @@ export default {
         pagenum: 1,
         pagesize: 2
       },
-      tableHeight: '',
       userList: [],
       total: 3,
       dialog: {
@@ -171,7 +170,6 @@ export default {
   },
   created() {
     this.getList()
-    this.tableHeight = window.innerHeight - 268
   },
   methods: {
     getList() {

@@ -6,8 +6,12 @@ export default {
           pagination: {
             total: 0
           },
+          tableHeight: '',
           pageSizeType: [2, 5, 10, 50, 100]
         }
+      },
+      created() {
+        this.tableHeight = window.innerHeight - 268
       },
       methods: {
         handleSizeChange(val) {
