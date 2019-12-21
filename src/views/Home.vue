@@ -58,6 +58,8 @@
   </el-container>
 </template>
 <script>
+import { getMenus } from '@/api/home'
+
 export default {
   data() {
     return {
@@ -75,7 +77,7 @@ export default {
       this.$router.push('/login')
     },
     getMenuList() {
-      this.$http.get('menus').then(({ data: res }) => {
+      getMenus().then(({ data: res }) => {
         this.menuList = res.data
       })
     },

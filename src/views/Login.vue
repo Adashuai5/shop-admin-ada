@@ -4,12 +4,24 @@
       <div class="avater-warpper">
         <img src="../assets/logo.png" alt />
       </div>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="login-form">
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        class="login-form"
+      >
         <el-form-item prop="username">
-          <el-input prefix-icon="iconfont iconuser" v-model="ruleForm.username"></el-input>
+          <el-input
+            prefix-icon="iconfont iconuser"
+            v-model="ruleForm.username"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" prefix-icon="iconfont iconpassword" v-model="ruleForm.password"></el-input>
+          <el-input
+            type="password"
+            prefix-icon="iconfont iconpassword"
+            v-model="ruleForm.password"
+          ></el-input>
         </el-form-item>
         <el-form-item class="text-right">
           <el-button type="primary" @click="submitForm()">立即创建</el-button>
@@ -21,6 +33,8 @@
 </template>
 
 <script>
+import { getLogin } from '@/api/login'
+
 export default {
   name: 'Login',
   data() {
@@ -45,7 +59,7 @@ export default {
     submitForm() {
       this.$refs.ruleForm.validate(async valid => {
         if (valid) {
-          this.$http.post('login', this.ruleForm).then(({ data }) => {
+          getLogin(this.ruleForm).then(({ data }) => {
             this.$message.success(data.meta.msg)
             window.sessionStorage.setItem('token', data.data.token)
             window.sessionStorage.setItem('state', JSON.stringify(data.data))

@@ -12,12 +12,12 @@
             placeholder="搜索姓名"
             v-model="params.query"
             clearable
-            @clear="getUserList"
+            @clear="getList"
           >
             <el-button
               slot="append"
               icon="el-icon-search"
-              @click="getUserList"
+              @click="getList"
             ></el-button>
           </el-input>
         </el-col>
@@ -127,6 +127,8 @@
 </template>
 
 <script>
+import { getUsersList, changeType } from '@/api/users'
+
 export default {
   name: 'users',
   data() {
@@ -149,37 +151,31 @@ export default {
     }
   },
   created() {
-    this.getUserList()
+    this.getList()
     this.tableHeight = window.innerHeight - 268
   },
   methods: {
-    getUserList() {
-      this.$http
-        .get('/users', {
-          params: this.params
-        })
-        .then(({ data }) => {
-          this.userList = data.data.users
-          this.total = data.data.total
-        })
+    getList() {
+      getUsersList(this.params).then(({ data }) => {
+        this.userList = data.data.users
+        this.total = data.data.total
+      })
     },
     handleSizeChange(val) {
       this.params.pagesize = val
-      this.getUserList()
+      this.getList()
     },
     handleCurrentChange(val) {
       this.params.pagenum = val
-      this.getUserList()
+      this.getList()
     },
     handleClick(row) {
       console.log(row)
     },
     changeStatus(row) {
-      this.$http
-        .put(`/users/${row.id}/state/${row.mg_state}`)
-        .then(({ data }) => {
-          this.$message.success(data.meta.msg)
-        })
+      changeType({ id: row.id, mg_state: row.mg_state }).then(({ data }) => {
+        this.$message.success(data.meta.msg)
+      })
     }
   }
 }
