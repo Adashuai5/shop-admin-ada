@@ -4,10 +4,13 @@ import router from './router'
 import './assets/css/global.less'
 import './assets/fonts/iconfont.css'
 import Element from 'element-ui'
+import './utils/request'
 import Vuex from 'vuex'
-import './request'
+import mixins from './utils/mixins'
 
 Vue.use(Vuex)
+
+Vue.use(mixins)
 
 const store = new Vuex.Store({
   state: {}

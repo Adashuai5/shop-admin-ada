@@ -22,7 +22,7 @@
           </el-input>
         </el-col>
         <el-col :span="8">
-          <el-button type="primary">添加用户</el-button>
+          <el-button type="primary" @click="doCreate">添加用户</el-button>
         </el-col>
       </el-row>
       <el-row>
@@ -104,24 +104,21 @@
         <el-col :span="24" class="text-right">
           <el-pagination
             :current-page="params.pagenum"
-            :page-sizes="[2, 5, 10, 50, 100]"
+            :page-sizes="pageSizeType"
             :page-size="params.pagesize"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
+            :total="pagination.total"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
           ></el-pagination>
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog title="提示" :visible.sync="dialog.edit.show" width="30%">
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialog.edit.show = false">取 消</el-button>
-        <el-button type="primary" @click="dialog.edit.show = false"
-          >确 定</el-button
-        >
-      </span>
+    <el-dialog
+      :title="dialog.edit.title"
+      :visible.sync="dialog.edit.show"
+      width="30%"
+    >
     </el-dialog>
   </div>
 </template>
@@ -150,6 +147,9 @@ export default {
       }
     }
   },
+  components: {
+    'edit-user': () => import('./edit')
+  },
   created() {
     this.getList()
     this.tableHeight = window.innerHeight - 268
@@ -158,16 +158,12 @@ export default {
     getList() {
       getUsersList(this.params).then(({ data }) => {
         this.userList = data.data.users
-        this.total = data.data.total
+        this.pagination.total = data.data.total
       })
     },
-    handleSizeChange(val) {
-      this.params.pagesize = val
-      this.getList()
-    },
-    handleCurrentChange(val) {
-      this.params.pagenum = val
-      this.getList()
+    doCreate() {
+      this.dialog.edit.show = true
+      this.dialog.edit.title = '创建用户'
     },
     handleClick(row) {
       console.log(row)

@@ -1,4 +1,4 @@
-import request from '@/request.js'
+import request from '@/utils/request.js'
 
 export function getMenus(params) {
   return request({
