@@ -76,20 +76,20 @@
             >
               <template slot-scope="scope">
                 <el-button
-                  @click="handleClick(scope.row)"
+                  @click="doEdit('edit', scope.row)"
                   size="mini"
                   icon="el-icon-edit"
                   type="primary"
                 ></el-button>
                 <el-button
-                  @click="handleClick(scope.row)"
+                  @click="doRemove(scope.row)"
                   size="mini"
                   type="danger"
                   icon="el-icon-delete"
                 ></el-button>
                 <el-tooltip placement="top" content="分配角色" effect="dark">
                   <el-button
-                    @click="handleClick(scope.row)"
+                    @click="doEdit('set', scope.row)"
                     size="mini"
                     type="warning"
                     icon="el-icon-setting"
@@ -114,17 +114,31 @@
         </el-col>
       </el-row>
     </el-card>
+
     <el-dialog
       :title="dialog.edit.title"
       :visible.sync="dialog.edit.show"
-      width="30%"
+      v-if="dialog.edit.show"
+      :close-on-click-modal="false"
+      width="500px"
     >
+      <edit-user
+        :model="dialog.edit.data"
+        @editEmit="editEmit('edit')"
+        @close="dialog.edit.show = false"
+      >
+      </edit-user>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { getUsersList, changeType } from '@/api/users'
+import {
+  getUsersList,
+  getUsersInfo,
+  changeType,
+  deleteUsers
+} from '@/api/users'
 
 export default {
   name: 'users',
@@ -140,6 +154,11 @@ export default {
       total: 3,
       dialog: {
         edit: {
+          title: '',
+          data: {},
+          show: false
+        },
+        set: {
           title: '',
           data: {},
           show: false
@@ -163,10 +182,34 @@ export default {
     },
     doCreate() {
       this.dialog.edit.show = true
+      this.dialog.edit.data = {}
       this.dialog.edit.title = '创建用户'
     },
-    handleClick(row) {
-      console.log(row)
+    doEdit(obj, row) {
+      getUsersInfo(row.id).then(res => {
+        this.dialog[obj].show = true
+        this.dialog[obj].data = res.data.data
+        this.dialog[obj].title = '编辑用户'
+      })
+    },
+    doRemove(row) {
+      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteUsers({ id: row.id }).then(res => {
+          this.$message({
+            type: 'success',
+            message: res.data.meta.msg
+          })
+          this.getList()
+        })
+      })
+    },
+    editEmit(obj) {
+      this.dialog[obj].show = false
+      this.getList()
     },
     changeStatus(row) {
       changeType({ id: row.id, mg_state: row.mg_state }).then(({ data }) => {

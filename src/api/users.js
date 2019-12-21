@@ -8,10 +8,26 @@ export function getUsersList(params) {
   })
 }
 
+export function getUsersInfo(params) {
+  return request({
+    url: `/users/${params}`,
+    method: 'get',
+    params
+  })
+}
+
 export function createUsers(data) {
   return request({
     url: '/users',
     method: 'post',
+    data
+  })
+}
+
+export function editUsers(data) {
+  return request({
+    url: `/users/${data.id}`,
+    method: 'put',
     data
   })
 }
@@ -22,5 +38,12 @@ export function changeType(data) {
     url: `/users/${data.id}/state/${data.mg_state}`,
     method: 'put',
     data
+  })
+}
+
+export function deleteUsers(data) {
+  return request({
+    url: `/users/${data.id}`,
+    method: 'delete'
   })
 }

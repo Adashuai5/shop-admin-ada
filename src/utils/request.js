@@ -20,7 +20,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    if (response.data.meta.status && response.data.meta.status !== 200) {
+    if (response.data.meta.status && response.data.meta.status >= 300) {
       Element.Message.error({
         message: response.data.meta.msg
       })

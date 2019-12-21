@@ -1,14 +1,62 @@
 * {
   margin: 0;
   padding: 0;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 html,
 body,
 #app {
   height: 100%;
-  font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC',
+    'Hiragino Sans GB', 'Heiti SC', 'Microsoft YaHei', 'WenQuanYi Micro Hei',
+    sans-serif;
+}
+
+@form-input-width: 220px;
+
+@primary: #05c247;
+
+@blue: #409eff;
+
+@green: #67c23a;
+
+@orange: #e6a23c;
+
+@red: #f56c6c;
+
+@gray: #909399;
+
+.edit-form {
+  display: inline-block;
+
+  .form-box-input {
+    display: inline-block;
+    width: @form-input-width !important;
+  }
+
+  .form-box-input-m {
+    display: inline-block;
+    width: (@form-input-width - 60px) !important;
+  }
+
+  .form-box-input-2 {
+    width: (@form-input-width * 2) !important;
+  }
+}
+
+.el-dialog {
+  border-radius: 4px;
+  .el-dialog__header {
+    background-color: @blue;
+    border-radius: 4px 4px 0px 0px;
+    .el-dialog__title {
+      color: #fff;
+    }
+    .el-dialog__headerbtn .el-dialog__close {
+      color: #fff;
+    }
+  }
 }
 
 .el-breadcrumb {
@@ -17,8 +65,7 @@ body,
 }
 
 .el-card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .02),
-    0 0 6px 0 rgba(0, 0, 0, .04) !important;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.02), 0 0 6px 0 rgba(0, 0, 0, 0.04) !important;
 }
 
 .el-row {
@@ -40,7 +87,6 @@ body,
 }
 
 .text {
-
   &-left {
     text-align: left;
   }
@@ -54,7 +100,66 @@ body,
   }
 }
 
+.t {
+  &-primary {
+    color: @primary;
+  }
+
+  &-blue {
+    color: @blue;
+  }
+
+  &-green {
+    color: @green;
+  }
+
+  &-orange {
+    color: @orange;
+  }
+
+  &-red {
+    color: @red;
+  }
+
+  &-gray {
+    color: @gray;
+  }
+
+  &-12 {
+    font-size: 12px;
+  }
+
+  &-14 {
+    font-size: 14px;
+  }
+
+  &-16 {
+    font-size: 16px;
+  }
+
+  &-18 {
+    font-size: 18px;
+  }
+
+  &-20 {
+    font-size: 20px;
+  }
+
+  &-stop {
+    cursor: not-allowed;
+  }
+}
 .m {
+  &b {
+    &-10 {
+      margin-bottom: 10px;
+    }
+
+    &-20 {
+      margin-bottom: 20px;
+    }
+  }
+
   &t {
     &-10 {
       margin-top: 10px;
@@ -70,6 +175,20 @@ body,
 
     &-24 {
       margin-top: 24px;
+    }
+  }
+
+  &l {
+    &-5 {
+      margin-left: 5px;
+    }
+
+    &-10 {
+      margin-left: 10px;
+    }
+
+    &-20 {
+      margin-left: 20px;
     }
   }
 
