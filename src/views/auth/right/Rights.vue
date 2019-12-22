@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getRightsList } from '@/api/auth/right'
+import { getRightsList } from '@/api/auth/rights'
 export default {
   name: '',
   data() {

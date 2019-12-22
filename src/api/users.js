@@ -47,3 +47,11 @@ export function deleteUsers(data) {
     method: 'delete'
   })
 }
+
+export function editUsersRoles(data) {
+  return request({
+    url: `/users/${data.id}/role`,
+    method: 'put',
+    data
+  })
+}

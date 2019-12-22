@@ -7,3 +7,11 @@ export function getRightsList(params) {
     params
   })
 }
+
+export function getRightsTree(params) {
+  return request({
+    url: '/rights/tree',
+    method: 'get',
+    params
+  })
+}

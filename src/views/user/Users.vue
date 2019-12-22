@@ -6,7 +6,7 @@
       <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card>
-      <el-row :gutter="20">
+      <el-row :gutter="20" class="mb-20">
         <el-col :span="8">
           <el-input
             placeholder="搜索姓名"
@@ -76,7 +76,7 @@
             >
               <template slot-scope="scope">
                 <el-button
-                  @click="doEdit('edit', scope.row)"
+                  @click="doEdit('edit', scope.row, '编辑用户')"
                   size="mini"
                   icon="el-icon-edit"
                   type="primary"
@@ -87,9 +87,9 @@
                   type="danger"
                   icon="el-icon-delete"
                 ></el-button>
-                <el-tooltip placement="top" content="分配角色" effect="dark">
+                <el-tooltip placement="bottom" content="分配角色" effect="dark">
                   <el-button
-                    @click="doEdit('set', scope.row)"
+                    @click="doEdit('set', scope.row, '分配角色')"
                     size="mini"
                     type="warning"
                     icon="el-icon-setting"
@@ -129,6 +129,20 @@
       >
       </edit-user>
     </el-dialog>
+    <el-dialog
+      :title="dialog.set.title"
+      :visible.sync="dialog.set.show"
+      v-if="dialog.set.show"
+      :close-on-click-modal="false"
+      width="500px"
+    >
+      <set-user
+        :model="dialog.set.data"
+        @editEmit="editEmit('set')"
+        @close="dialog.set.show = false"
+      >
+      </set-user>
+    </el-dialog>
   </div>
 </template>
 
@@ -150,7 +164,6 @@ export default {
         pagesize: 2
       },
       userList: [],
-      total: 3,
       dialog: {
         edit: {
           title: '',
@@ -166,7 +179,8 @@ export default {
     }
   },
   components: {
-    'edit-user': () => import('./edit')
+    'edit-user': () => import('./edit'),
+    'set-user': () => import('./set')
   },
   created() {
     this.getList()
@@ -183,11 +197,11 @@ export default {
       this.dialog.edit.data = {}
       this.dialog.edit.title = '创建用户'
     },
-    doEdit(obj, row) {
+    doEdit(obj, row, title) {
       getUsersInfo(row.id).then(res => {
         this.dialog[obj].show = true
-        this.dialog[obj].data = res.data.data
-        this.dialog[obj].title = '编辑用户'
+        this.dialog[obj].data = row
+        this.dialog[obj].title = title
       })
     },
     doRemove(row) {
