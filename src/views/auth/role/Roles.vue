@@ -125,10 +125,11 @@
 
     <el-dialog
       :title="dialog.set.title"
+      top="10vh"
       :visible.sync="dialog.set.show"
       v-if="dialog.set.show"
       :close-on-click-modal="false"
-      width="400px"
+      width="500px"
     >
       <set-role
         :model="dialog.set.data"
