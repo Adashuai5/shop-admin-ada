@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { createCate, editCate, getCateInfo } from '@/api/cate'
+import { createCate, editCate, getCateInfo } from '@/api/good/cate'
 
 export default {
   props: {

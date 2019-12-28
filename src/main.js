@@ -7,6 +7,14 @@ import Element from 'element-ui'
 import './utils/request'
 import Vuex from 'vuex'
 import mixins from './utils/mixins'
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor)
 
 Vue.use(Vuex)
 
@@ -19,6 +27,20 @@ const store = new Vuex.Store({
 Vue.use(Element, {
   zIndex: 3000,
   size: 'small'
+})
+
+Vue.filter('dataFormat', val => {
+  const dateTime = new Date(val)
+
+  const Y = dateTime.getFullYear()
+  const M = (dateTime.getMonth() + 1 + '').padStart(2, '0')
+  const D = (dateTime.getDate() + 1 + '').padStart(2, '0')
+
+  const hh = (dateTime.getHours() + '').padStart(2, '0')
+  const mm = (dateTime.getMinutes() + '').padStart(2, '0')
+  const ss = (dateTime.getSeconds() + '').padStart(2, '0')
+
+  return `${Y}-${M}-${D} ${hh}:${mm}:${ss}`
 })
 
 Vue.config.productionTip = false

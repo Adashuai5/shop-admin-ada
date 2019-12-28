@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { addParams, editParams } from '@/api/params'
+import { addParams, editParams } from '@/api/good/params'
 import { deepClone } from '@/utils'
 
 const INITDATA = {

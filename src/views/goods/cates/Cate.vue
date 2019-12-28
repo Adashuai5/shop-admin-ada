@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { getCateList, deleteCate } from '@/api/cate'
+import { getCateList, deleteCate } from '@/api/good/cate'
 
 export default {
   data() {

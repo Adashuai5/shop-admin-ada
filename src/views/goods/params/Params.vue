@@ -125,8 +125,8 @@
 </template>
 
 <script>
-import { getParamsList, deleteParams, editParams } from '@/api/params'
-import { getCateList } from '@/api/cate'
+import { getParamsList, deleteParams, editParams } from '@/api/good/params'
+import { getCateList } from '@/api/good/cate'
 
 export default {
   name: 'users',
