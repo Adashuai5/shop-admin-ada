@@ -1,17 +1,40 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import Welcome from '../views/Welcome.vue'
-import Users from '../views/user/Users.vue'
-import Roles from '../views/auth/role/Roles.vue'
-import Rights from '../views/auth/right/Rights.vue'
-import Cate from '../views/goods/cates/Cate.vue'
-import Params from '../views/goods/params/Params.vue'
-import Goods from '../views/goods/goods/Goods.vue'
-import Add from '../views/goods/goods/add.vue'
-import Order from '../views/order/Order.vue'
-import Reports from '../views/report/Reports.vue'
+
+const Login = () =>
+  import(/* webpackChunkName: "Login-Home-Welcome" */ '../views/Login.vue')
+const Home = () =>
+  import(/* webpackChunkName: "Login-Home-Welcome" */ '../views/Home.vue')
+const Welcome = () =>
+  import(/* webpackChunkName: "Login-Home-Welcome" */ '../views/Welcome.vue')
+
+const Users = () =>
+  import(/* webpackChunkName: "Users-Home-Rights" */ '../views/user/Users.vue')
+const Roles = () =>
+  import(
+    /* webpackChunkName: "Users-Home-Rights" */ '../views/auth/role/Roles.vue'
+  )
+const Rights = () =>
+  import(
+    /* webpackChunkName: "Users-Home-Rights" */ '../views/auth/right/Rights.vue'
+  )
+
+const Cate = () =>
+  import(/* webpackChunkName: "Cate-Rights" */ '../views/goods/cates/Cate.vue')
+const Params = () =>
+  import(
+    /* webpackChunkName: "Cate-Params" */ '../views/goods/params/Params.vue'
+  )
+
+const Goods = () =>
+  import(/* webpackChunkName: "Goods-Add" */ '../views/goods/goods/Goods.vue')
+const Add = () =>
+  import(/* webpackChunkName: "Goods-Add" */ '../views/goods/goods/add.vue')
+
+const Order = () =>
+  import(/* webpackChunkName: "Order-Reports" */ '../views/order/Order.vue')
+const Reports = () =>
+  import(/* webpackChunkName: "Order-Reports" */ '../views/report/Reports.vue')
 
 Vue.use(VueRouter)
 
@@ -26,7 +49,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/home',
+    path: '/Roles',
     name: 'home',
     component: Home,
     redirect: '/welcome',
