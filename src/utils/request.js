@@ -3,7 +3,11 @@ import Element from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-const baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+const baseURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://www.liulongbin.top:8888/api/private/v1/'
+    : 'http://127.0.0.1:8888/api/private/v1/'
+
 const service = axios.create({
   baseURL,
   timeout: 1000 * 30
