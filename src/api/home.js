@@ -7,3 +7,11 @@ export function getMenus(params) {
     params
   })
 }
+
+export function getReports(params) {
+  return request({
+    url: '/reports/type/1',
+    method: 'get',
+    params
+  })
+}
