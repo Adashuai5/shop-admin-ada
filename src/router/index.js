@@ -49,7 +49,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/Roles',
+    path: '/home',
     name: 'home',
     component: Home,
     redirect: '/welcome',
