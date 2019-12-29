@@ -1,5 +1,7 @@
 import axios from 'axios'
 import Element from 'element-ui'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 const baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 const service = axios.create({
@@ -9,6 +11,7 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    NProgress.start()
     // 为请求头添加 Token 验证的 Authorization 字段
     config.headers.Authorization = window.sessionStorage.getItem('token')
     return config
@@ -20,6 +23,7 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
+    NProgress.done()
     if (response.data.meta.status && response.data.meta.status >= 300) {
       Element.Message.error({
         message: response.data.meta.msg
